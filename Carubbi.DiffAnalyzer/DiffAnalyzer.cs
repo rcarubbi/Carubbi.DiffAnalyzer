@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Carubbi.Extensions;
 
 namespace Carubbi.DiffAnalyzer
 {
@@ -156,7 +157,7 @@ namespace Carubbi.DiffAnalyzer
         {
             try
             {
-                if (property.PropertyType.IsGenericTypes())
+                if (property.PropertyType.IsGeneric())
                 {
                     LoadGenericTypeProperty(parentType, property, oldInstance, newInstance, comparisons);
                 }

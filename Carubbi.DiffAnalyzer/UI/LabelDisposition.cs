@@ -1,10 +1,22 @@
 ﻿
 namespace Carubbi.DiffAnalyzer.UI
 {
-    public enum LabelDisposition : int
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum LabelDisposition
     {
+        /// <summary>
+        /// 
+        /// </summary>
         Column,
+        /// <summary>
+        /// 
+        /// </summary>
         Row,
+        /// <summary>
+        /// 
+        /// </summary>
         None
     }
 }

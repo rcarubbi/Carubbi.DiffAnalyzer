@@ -65,7 +65,7 @@ namespace Carubbi.DiffAnalyzer {
         /// </summary>
         internal static string DiffState_Added {
             get {
-                return ResourceManager.GetString("DiffState.Added", resourceCulture);
+                return ResourceManager.GetString("DiffState_Added", resourceCulture);
             }
         }
         
@@ -74,7 +74,7 @@ namespace Carubbi.DiffAnalyzer {
         /// </summary>
         internal static string DiffState_Deleted {
             get {
-                return ResourceManager.GetString("DiffState.Deleted", resourceCulture);
+                return ResourceManager.GetString("DiffState_Deleted", resourceCulture);
             }
         }
         
@@ -83,7 +83,7 @@ namespace Carubbi.DiffAnalyzer {
         /// </summary>
         internal static string DiffState_Modified {
             get {
-                return ResourceManager.GetString("DiffState.Modified", resourceCulture);
+                return ResourceManager.GetString("DiffState_Modified", resourceCulture);
             }
         }
         
@@ -92,7 +92,7 @@ namespace Carubbi.DiffAnalyzer {
         /// </summary>
         internal static string DiffState_NotChanged {
             get {
-                return ResourceManager.GetString("DiffState.NotChanged", resourceCulture);
+                return ResourceManager.GetString("DiffState_NotChanged", resourceCulture);
             }
         }
         
@@ -101,7 +101,7 @@ namespace Carubbi.DiffAnalyzer {
         /// </summary>
         internal static string DiffState_Unknow {
             get {
-                return ResourceManager.GetString("DiffState.Unknow", resourceCulture);
+                return ResourceManager.GetString("DiffState_Unknow", resourceCulture);
             }
         }
         

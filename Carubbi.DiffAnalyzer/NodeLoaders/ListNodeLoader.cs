@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Carubbi.Extensions;
 using Carubbi.Utils.Data;
 
 namespace Carubbi.DiffAnalyzer.NodeLoaders
@@ -17,8 +18,7 @@ namespace Carubbi.DiffAnalyzer.NodeLoaders
         public override void LoadNode(Type type, object oldInstance, object newInstance, List<DiffComparison> comparisons)
         {
             var countOldList = (oldInstance != null && (string) oldInstance != string.Empty)
-                ? Convert.ToInt32(oldInstance.GetType()
-                    .InvokeMember(COUNT_PROPERTY, BindingFlags.GetProperty, null, oldInstance, null))
+                ? oldInstance.GetProperty<int>(COUNT_PROPERTY)
                 : 0;
 
             var countNewList = newInstance != null && (string) newInstance != string.Empty
@@ -35,16 +35,16 @@ namespace Carubbi.DiffAnalyzer.NodeLoaders
 
             if (sortClasses.Count > 0)
             {
-                var typedMultipleComparer = Extensions.CreateGenericTypeByReflection(typeof(GenericMultipleComparer<>), type, new object[] { sortClasses });
+                var typedMultipleComparer = typeof(GenericMultipleComparer<>).Of(type).New(sortClasses);
 
                 var listType = oldInstance?.GetType();
 
-                listType.InvokeMember("Sort",
+                listType?.InvokeMember("Sort",
                     BindingFlags.InvokeMethod,
                     null, oldInstance,
                     new[] { typedMultipleComparer });
 
-                listType.InvokeMember("Sort",
+                listType?.InvokeMember("Sort",
                     BindingFlags.InvokeMethod,
                    null, newInstance,
                    new[] { typedMultipleComparer });
@@ -79,7 +79,7 @@ namespace Carubbi.DiffAnalyzer.NodeLoaders
 
                 for (var i = 0; i < countSyncronizedList; i++)
                 {
-                    LoadTypeNodeHandler?.Invoke(type, (oldInstance as IList)?[i], ((IList) newInstance)?[i], comparisons);
+                    LoadTypeNodeHandler?.Invoke(type, ((IList) oldInstance)?[i], ((IList) newInstance)?[i], comparisons);
                     comparisons.Last().LastProperty = true;
                 }
             }
@@ -113,13 +113,11 @@ namespace Carubbi.DiffAnalyzer.NodeLoaders
 
         private static void SyncronizeLists(Type type, object oldInstance, object newInstance, IEnumerable<string> propertyKeyNames, Type listType, int i)
         {
-            object[] constructorParams = propertyKeyNames.ToArray();
-            var typedEqualityComparer = Extensions.CreateGenericTypeByReflection(typeof(GenericEqualityComparer<>), type, constructorParams);
+            var constructorParams = propertyKeyNames.ToArray();
+            var typedEqualityComparer = typeof(GenericEqualityComparer<>).Of(type).New(constructorParams);
 
-            var mInfo = typeof(Enumerable).GetMethods().Where(m => m.Name == "Contains").ToArray();
-            var containsMethod = mInfo[1].MakeGenericMethod(type);
+            var exists = newInstance.CallGeneric<bool>(type, "Contains", newInstance, (oldInstance as IList)?[i], typedEqualityComparer);
 
-            var exists = (bool)containsMethod.Invoke(newInstance, new[] { newInstance, (oldInstance as IList)?[i], typedEqualityComparer });
             if (!exists)
             {
                 listType.InvokeMember("Insert", BindingFlags.InvokeMethod, null, newInstance, new object[] { i, null });

@@ -112,25 +112,25 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DiffState.Added" xml:space="preserve">
-    <value>Novo</value>
-  </data>
-  <data name="DiffState.Deleted" xml:space="preserve">
+  <data name="DiffState_Deleted" xml:space="preserve">
     <value>Excluído</value>
   </data>
-  <data name="DiffState.Modified" xml:space="preserve">
+  <data name="DiffState_Modified" xml:space="preserve">
     <value>Alterado</value>
   </data>
-  <data name="DiffState.NotChanged" xml:space="preserve">
+  <data name="DiffState_NotChanged" xml:space="preserve">
     <value>Não alterado</value>
   </data>
-  <data name="DiffState.Unknow" xml:space="preserve">
+  <data name="DiffState_Unknow" xml:space="preserve">
     <value>Desconhecido</value>
+  </data>
+  <data name="DiffStat_Added" xml:space="preserve">
+    <value>Novo</value>
   </data>
   <data name="NewValueTextField" xml:space="preserve">
     <value>Novo Valor</value>

@@ -4,23 +4,34 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
+using System.Linq;
 using System.Threading;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Carubbi.Extensions;
 
 namespace Carubbi.DiffAnalyzer.UI
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [ToolboxData("<{0}:DiffComparisonViewer runat=server></{0}:DiffComparisonViewer>")]
     public class DiffComparisonViewer : DataBoundControl
     {
-        private readonly Table tbl = new Table();
+        private readonly Table _table = new Table();
 
+        /// <summary>
+        /// 
+        /// </summary>
         public new List<DiffComparison> DataSource
         {
             set => base.DataSource = value;
             get => (List<DiffComparison>)base.DataSource;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         [TypeConverter(typeof(WebColorConverter))]
         public Color? TitleBackColor
@@ -42,6 +53,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         [TypeConverter(typeof(WebColorConverter))]
         public Color? TitleForeColor
@@ -63,6 +77,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         [TypeConverter(typeof(WebColorConverter))]
         public Color? ModifiedBackColor
@@ -84,6 +101,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         [TypeConverter(typeof(WebColorConverter))]
         public Color? ModifiedForeColor
@@ -105,6 +125,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         [TypeConverter(typeof(WebColorConverter))]
         public Color? AddedBackColor
@@ -126,6 +149,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         [TypeConverter(typeof(WebColorConverter))]
         public Color? AddedForeColor
@@ -169,6 +195,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         [TypeConverter(typeof(WebColorConverter))]
         public Color? DeletedForeColor
@@ -190,6 +219,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         [TypeConverter(typeof(WebColorConverter))]
         public Color? NotChangedBackColor
@@ -211,6 +243,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         [TypeConverter(typeof(WebColorConverter))]
         public Color? NotChangedForeColor
@@ -232,6 +267,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         [TypeConverter(typeof(WebColorConverter))]
         public Color? UnknowBackColor
@@ -253,6 +291,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         [TypeConverter(typeof(WebColorConverter))]
         public Color? UnknowForeColor
@@ -274,6 +315,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         public string PropertyNameTextField
         {
@@ -292,6 +336,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         public string NewValueTextField
         {
@@ -310,6 +357,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         public string OldValueTextField
         {
@@ -328,6 +378,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         public string StatusTextField
         {
@@ -346,6 +399,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         [TypeConverter(typeof(WebColorConverter))]
         public Color? CellBorderColor
@@ -367,6 +423,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         public BorderStyle? CellBorderStyle
         {
@@ -387,6 +446,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         [DefaultValue(typeof(Unit), "")]
         public Unit? CellBorderWidth
@@ -408,6 +470,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         public int CellSpacing
         {
@@ -426,6 +491,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         public int CellPadding
         {
@@ -444,6 +512,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         public FontStyle? OldValueStyle
         {
@@ -464,6 +535,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         public FontStyle? NewValueStyle
         {
@@ -484,6 +558,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         public FontStyle? PropertyNameStyle
         {
@@ -504,6 +581,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         public FontStyle? StatusStyle
         {
@@ -524,6 +604,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         public LabelDisposition LabelDisposition
         {
@@ -542,6 +625,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Appearance")]
         public bool PutSpacesInPropertyName
         {
@@ -560,6 +646,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Behavior")]
         public bool ShowPropertyName
         {
@@ -578,6 +667,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Behavior")]
         public bool ShowNewValueName
         {
@@ -596,6 +688,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Behavior")]
         public bool ShowOldValueName
         {
@@ -614,6 +709,9 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Behavior")]
         public bool ShowState
         {
@@ -632,6 +730,10 @@ namespace Carubbi.DiffAnalyzer.UI
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
         [Category("Behavior")]
         public CultureInfo Culture
         {
@@ -671,11 +773,137 @@ namespace Carubbi.DiffAnalyzer.UI
                 }
             }
         }
+     
+        /// <inheritdoc />
+        protected override void PerformSelect()
+        {
+            // Call OnDataBinding here if bound to a data source using the
+            // DataSource property (instead of a DataSourceID), because the
+            // databinding statement is evaluated before the call to GetData.       
+            if (!IsBoundUsingDataSourceID)
+            {
+                OnDataBinding(EventArgs.Empty);
+            }
 
-        private void CreateCell(TableCell cell, TableRow row, bool visible, string text, FontStyle? style = null)
+            // The GetData method retrieves the DataSourceView object from  
+            // the IDataSource associated with the data-bound control.            
+            GetData().Select(CreateDataSourceSelectArguments(), OnDataSourceViewSelectCallback);
+
+            // The PerformDataBinding method has completed.
+            RequiresDataBinding = false;
+            MarkAsDataBound();
+
+            // Raise the DataBound event.
+            OnDataBound(EventArgs.Empty);
+        }
+
+        /// <inheritdoc />
+        protected override void PerformDataBinding(IEnumerable retrievedData)
+        {
+            if (DesignMode)
+            {
+                _table.Rows.Clear();
+            }
+
+            var dataItems = retrievedData as object[] ?? retrievedData?.Cast<object>().ToArray();
+            base.PerformDataBinding(dataItems);
+
+            ConfigureFont();
+            ConfigureBorder();
+            ConfigureLayout();
+
+            var titleAlreadyShowed = false;
+
+            if (dataItems != null)
+                foreach (var dataItem in dataItems)
+                {
+                    DiffComparison comparison;
+
+                    if (DesignMode)
+                    {
+                        comparison = new DiffComparison
+                        {
+                            NewValue = "abc",
+                            OldValue = "abc",
+                            PropertyName = "PropertyName"
+                        };
+                    }
+                    else
+                    {
+                        comparison = ((DiffComparison) dataItem);
+                        if (!StateFilter.Has(comparison.State))
+                            continue;
+
+                        if (PutSpacesInPropertyName)
+                            comparison.PropertyName = PutSpaces(comparison.PropertyName);
+
+                        comparison.NewValue = TranslateData(comparison.NewValue);
+                        comparison.OldValue = TranslateData(comparison.OldValue);
+                    }
+
+                    TableRow row;
+                    if (LabelDisposition == LabelDisposition.Row)
+                    {
+                        if (!titleAlreadyShowed)
+                        {
+                            row = new TableRow();
+                            _table.Rows.Add(row);
+                            row.CssClass = "header-row";
+                            if (TitleBackColor.HasValue)
+                                row.BackColor = TitleBackColor.Value;
+                            if (TitleForeColor.HasValue)
+                                row.ForeColor = TitleForeColor.Value;
+                            CreateCell(row, true, PropertyNameTextField, PropertyNameStyle);
+                            CreateCell(row, true, OldValueTextField, OldValueStyle);
+                            CreateCell(row, true, NewValueTextField, NewValueStyle);
+                            CreateCell(row, ShowState, StatusTextField, StatusStyle);
+                            titleAlreadyShowed = true;
+                        }
+
+                        row = new TableRow();
+                        ApplyColors(row, comparison);
+                        _table.Rows.Add(row);
+
+                        CreateCell(row, true, comparison.PropertyName.PadLeftWithPattern(comparison.Depth * 3, "&nbsp"));
+                        CreateCell(row, true, comparison.OldValue.ToString());
+                        CreateCell(row, true, comparison.NewValue.ToString());
+                        CreateCell(row, ShowState, GetDiffState(comparison.State).ToString());
+
+                        if (comparison.LastProperty)
+                            _table.Rows[_table.Rows.Count - 1].CssClass += " separator-row";
+                    }
+                    else if (LabelDisposition == LabelDisposition.Column)
+                    {
+                        row = new TableRow();
+                        ApplyColors(row, comparison);
+                        _table.Rows.Add(row);
+                        CreateCell(row, ShowPropertyName, PropertyNameTextField, PropertyNameStyle);
+                        CreateCell(row, true, comparison.PropertyName.PadLeftWithPattern(comparison.Depth * 3, "&nbsp"));
+                        CreateCell(row, ShowOldValueName, OldValueTextField, OldValueStyle);
+                        CreateCell(row, true, comparison.OldValue.ToString());
+                        CreateCell(row, ShowNewValueName, NewValueTextField, NewValueStyle);
+                        CreateCell(row, true, comparison.NewValue.ToString());
+                        CreateCell(row, ShowState, GetDiffState(comparison.State).ToString());
+                    }
+                    else
+                    {
+                        row = new TableRow();
+                        ApplyColors(row, comparison);
+                        _table.Rows.Add(row);
+                        CreateCell(row, true, comparison.PropertyName.PadLeftWithPattern(comparison.Depth * 3, "&nbsp"));
+                        CreateCell(row, true, comparison.OldValue.ToString());
+                        CreateCell(row, true, comparison.NewValue.ToString());
+                        CreateCell(row, ShowState, GetDiffState(comparison.State).ToString());
+                    }
+                }
+
+            Controls.Add(_table);
+        }
+
+        private void CreateCell(TableRow row, bool visible, string text, FontStyle? style = null)
         {
             if (!visible) return;
-            cell = new TableCell();
+            var cell = new TableCell();
             if (CellBorderColor.HasValue)
                 cell.BorderColor = CellBorderColor.Value;
             if (CellBorderStyle.HasValue)
@@ -705,149 +933,14 @@ namespace Carubbi.DiffAnalyzer.UI
                         cell.Font.Underline = true;
                         break;
                     default:
-                        break;
+                        throw new ArgumentOutOfRangeException();
                 }
             }
             cell.Text = text;
             row.Cells.Add(cell);
         }
 
-        protected override void PerformSelect()
-        {
-            // Call OnDataBinding here if bound to a data source using the
-            // DataSource property (instead of a DataSourceID), because the
-            // databinding statement is evaluated before the call to GetData.       
-            if (!IsBoundUsingDataSourceID)
-            {
-                OnDataBinding(EventArgs.Empty);
-            }
-
-            // The GetData method retrieves the DataSourceView object from  
-            // the IDataSource associated with the data-bound control.            
-            GetData().Select(CreateDataSourceSelectArguments(), OnDataSourceViewSelectCallback);
-
-            // The PerformDataBinding method has completed.
-            RequiresDataBinding = false;
-            MarkAsDataBound();
-
-            // Raise the DataBound event.
-            OnDataBound(EventArgs.Empty);
-        }
-
-        protected override void PerformDataBinding(IEnumerable retrievedData)
-        {
-            if (DesignMode)
-            {
-                tbl.Rows.Clear();
-            }
-
-            base.PerformDataBinding(retrievedData);
-
-            // Verify data exists.
-            if (retrievedData == null) return;
-            ConfigureFont();
-            ConfigureBorder();
-            ConfigureLayout();
-
-            TableCell cell1 = null,
-                cell2 = null,
-                cell3 = null,
-                cell4 = null,
-                cell5 = null,
-                cell6 = null,
-                cell7 = null,
-                cell8 = null;
-
-            var dataStr = string.Empty;
-
-            var titleAlreadyShowed = false;
-
-            foreach (var dataItem in retrievedData)
-            {
-                DiffComparison comparison;
-
-                if (DesignMode)
-                {
-                    comparison = new DiffComparison
-                    {
-                        NewValue = "abc",
-                        OldValue = "abc",
-                        PropertyName = "PropertyName"
-                    };
-                }
-                else
-                {
-                    comparison = ((DiffComparison)dataItem);
-                    if (!StateFilter.Has(comparison.State))
-                        continue;
-
-                    if (PutSpacesInPropertyName)
-                        comparison.PropertyName = PutSpaces(comparison.PropertyName);
-
-                    comparison.NewValue = TranslateData(comparison.NewValue);
-                    comparison.OldValue = TranslateData(comparison.OldValue);
-                }
-
-                TableRow row;
-                if (LabelDisposition == LabelDisposition.Row)
-                {
-                    if (!titleAlreadyShowed)
-                    {
-                        row = new TableRow();
-                        tbl.Rows.Add(row);
-                        row.CssClass = "header-row";
-                        if (TitleBackColor.HasValue)
-                            row.BackColor = TitleBackColor.Value;
-                        if (TitleForeColor.HasValue)
-                            row.ForeColor = TitleForeColor.Value;
-                        CreateCell(cell1, row, true, PropertyNameTextField, PropertyNameStyle);
-                        CreateCell(cell3, row, true, OldValueTextField, OldValueStyle);
-                        CreateCell(cell5, row, true, NewValueTextField, NewValueStyle);
-                        CreateCell(cell7, row, ShowState, StatusTextField, StatusStyle);
-                        titleAlreadyShowed = true;
-                    }
-
-                    row = new TableRow();
-                    ApplyColors(row, comparison);
-                    tbl.Rows.Add(row);
-
-                    CreateCell(cell2, row, true, comparison.PropertyName.PadLeft(comparison.Depth * 3, "&nbsp"));
-                    CreateCell(cell4, row, true, comparison.OldValue.ToString());
-                    CreateCell(cell6, row, true, comparison.NewValue.ToString());
-                    CreateCell(cell8, row, ShowState, GetDiffState(comparison.State).ToString());
-
-                    if (comparison.LastProperty)
-                        tbl.Rows[tbl.Rows.Count - 1].CssClass += " separator-row";
-                }
-                else if (LabelDisposition == LabelDisposition.Column)
-                {
-                    row = new TableRow();
-                    ApplyColors(row, comparison);
-                    tbl.Rows.Add(row);
-                    CreateCell(cell1, row, ShowPropertyName, PropertyNameTextField, PropertyNameStyle);
-                    CreateCell(cell2, row, true, comparison.PropertyName.PadLeft(comparison.Depth * 3, "&nbsp"));
-                    CreateCell(cell3, row, ShowOldValueName, OldValueTextField, OldValueStyle);
-                    CreateCell(cell4, row, true, comparison.OldValue.ToString());
-                    CreateCell(cell5, row, ShowNewValueName, NewValueTextField, NewValueStyle);
-                    CreateCell(cell6, row, true, comparison.NewValue.ToString());
-                    CreateCell(cell7, row, ShowState, GetDiffState(comparison.State).ToString());
-                }
-                else
-                {
-                    row = new TableRow();
-                    ApplyColors(row, comparison);
-                    tbl.Rows.Add(row);
-                    CreateCell(cell2, row, true, comparison.PropertyName.PadLeft(comparison.Depth * 3, "&nbsp"));
-                    CreateCell(cell4, row, true, comparison.OldValue.ToString());
-                    CreateCell(cell6, row, true, comparison.NewValue.ToString());
-                    CreateCell(cell7, row, ShowState, GetDiffState(comparison.State).ToString());
-                }
-            }
-
-            Controls.Add(tbl);
-        }
-
-        private string PutSpaces(string name)
+        private static string PutSpaces(string name)
         {
             var spaceIndexes = new List<int>();
             var indexCounter = 0;
@@ -873,18 +966,10 @@ namespace Carubbi.DiffAnalyzer.UI
         {
             if (Culture.Name != "pt-BR") return value;
             if (!(value is bool b)) return value;
-
-            if (b)
-                value = "Verdadeiro";
-            else if ((bool) value == false)
-            {
-                value = "Falso";
-            }
-
-            return value;
+            return b ? "Verdadeiro" : "Falso"; ;
         }
 
-        private object GetDiffState(DiffState enumItem)
+        private static object GetDiffState(DiffState enumItem)
         {
             switch (enumItem)
             {
@@ -918,35 +1003,35 @@ namespace Carubbi.DiffAnalyzer.UI
 
         private void ConfigureBorder()
         {
-            tbl.BorderColor = BorderColor;
-            tbl.BorderStyle = BorderStyle;
-            tbl.BorderWidth = BorderWidth;
+            _table.BorderColor = BorderColor;
+            _table.BorderStyle = BorderStyle;
+            _table.BorderWidth = BorderWidth;
         }
 
         private void ConfigureFont()
         {
-            tbl.Font.Bold = Font.Bold;
-            tbl.Font.Italic = Font.Italic;
-            tbl.Font.Name = Font.Name;
-            tbl.Font.Names = Font.Names;
-            tbl.Font.Overline = Font.Overline;
-            tbl.Font.Size = Font.Size;
-            tbl.Font.Strikeout = Font.Strikeout;
-            tbl.Font.Underline = Font.Underline;
+            _table.Font.Bold = Font.Bold;
+            _table.Font.Italic = Font.Italic;
+            _table.Font.Name = Font.Name;
+            _table.Font.Names = Font.Names;
+            _table.Font.Overline = Font.Overline;
+            _table.Font.Size = Font.Size;
+            _table.Font.Strikeout = Font.Strikeout;
+            _table.Font.Underline = Font.Underline;
         }
 
         private void ConfigureLayout()
         {
-            tbl.Width = Width;
-            tbl.Height = Height;
-            tbl.Enabled = Enabled;
-            tbl.CssClass = CssClass;
-            tbl.CellPadding = CellPadding;
-            tbl.CellSpacing = CellSpacing;
+            _table.Width = Width;
+            _table.Height = Height;
+            _table.Enabled = Enabled;
+            _table.CssClass = CssClass;
+            _table.CellPadding = CellPadding;
+            _table.CellSpacing = CellSpacing;
             Thread.CurrentThread.CurrentUICulture = Culture;
         }
 
-        private void ApplyColors(TableRow row, DiffComparison comparison)
+        private void ApplyColors(WebControl row, DiffComparison comparison)
         {
             switch (comparison.State)
             {
