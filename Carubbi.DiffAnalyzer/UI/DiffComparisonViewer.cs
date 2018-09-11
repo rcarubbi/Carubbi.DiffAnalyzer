@@ -817,29 +817,14 @@ namespace Carubbi.DiffAnalyzer.UI
             if (dataItems != null)
                 foreach (var dataItem in dataItems)
                 {
-                    DiffComparison comparison;
-
                     if (DesignMode)
                     {
-                        comparison = new DiffComparison
-                        {
-                            NewValue = "abc",
-                            OldValue = "abc",
-                            PropertyName = "PropertyName"
-                        };
+                        return;
                     }
-                    else
-                    {
-                        comparison = ((DiffComparison) dataItem);
-                        if (!StateFilter.Has(comparison.State))
-                            continue;
 
-                        if (PutSpacesInPropertyName)
-                            comparison.PropertyName = PutSpaces(comparison.PropertyName);
-
-                        comparison.NewValue = TranslateData(comparison.NewValue);
-                        comparison.OldValue = TranslateData(comparison.OldValue);
-                    }
+                    var comparison = ((DiffComparison) dataItem);
+                    if (!StateFilter.Has(comparison.State))
+                        continue;
 
                     TableRow row;
                     if (LabelDisposition == LabelDisposition.Row)
@@ -864,13 +849,10 @@ namespace Carubbi.DiffAnalyzer.UI
                         ApplyColors(row, comparison);
                         _table.Rows.Add(row);
 
-                        CreateCell(row, true, comparison.PropertyName.PadLeftWithPattern(comparison.Depth * 3, "&nbsp"));
-                        CreateCell(row, true, comparison.OldValue.ToString());
-                        CreateCell(row, true, comparison.NewValue.ToString());
+                        CreateCell(row, true, comparison.BreadCrumb);
+                        CreateCell(row, true, comparison.PreviousValue);
+                        CreateCell(row, true, comparison.CurrentValue);
                         CreateCell(row, ShowState, GetDiffState(comparison.State).ToString());
-
-                        if (comparison.LastProperty)
-                            _table.Rows[_table.Rows.Count - 1].CssClass += " separator-row";
                     }
                     else if (LabelDisposition == LabelDisposition.Column)
                     {
@@ -878,11 +860,11 @@ namespace Carubbi.DiffAnalyzer.UI
                         ApplyColors(row, comparison);
                         _table.Rows.Add(row);
                         CreateCell(row, ShowPropertyName, PropertyNameTextField, PropertyNameStyle);
-                        CreateCell(row, true, comparison.PropertyName.PadLeftWithPattern(comparison.Depth * 3, "&nbsp"));
+                        CreateCell(row, true, comparison.BreadCrumb);
                         CreateCell(row, ShowOldValueName, OldValueTextField, OldValueStyle);
-                        CreateCell(row, true, comparison.OldValue.ToString());
+                        CreateCell(row, true, comparison.PreviousValue);
                         CreateCell(row, ShowNewValueName, NewValueTextField, NewValueStyle);
-                        CreateCell(row, true, comparison.NewValue.ToString());
+                        CreateCell(row, true, comparison.CurrentValue);
                         CreateCell(row, ShowState, GetDiffState(comparison.State).ToString());
                     }
                     else
@@ -890,9 +872,9 @@ namespace Carubbi.DiffAnalyzer.UI
                         row = new TableRow();
                         ApplyColors(row, comparison);
                         _table.Rows.Add(row);
-                        CreateCell(row, true, comparison.PropertyName.PadLeftWithPattern(comparison.Depth * 3, "&nbsp"));
-                        CreateCell(row, true, comparison.OldValue.ToString());
-                        CreateCell(row, true, comparison.NewValue.ToString());
+                        CreateCell(row, true, comparison.BreadCrumb);
+                        CreateCell(row, true, comparison.PreviousValue);
+                        CreateCell(row, true, comparison.CurrentValue);
                         CreateCell(row, ShowState, GetDiffState(comparison.State).ToString());
                     }
                 }

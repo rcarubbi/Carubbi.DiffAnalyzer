@@ -88,26 +88,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalyzerBehavior.cs" />
-    <Compile Include="DiffAnalyzableEntityAttribute.cs" />
-    <Compile Include="DiffListComparison.cs" />
+    <Compile Include="ComparisonNode.cs" />
+    <Compile Include="DiffAnalyzer.cs" />
+    <Compile Include="DiffComparison.cs" />
+    <Compile Include="DiffKeyAttribute.cs" />
+    <Compile Include="DiffModes.cs" />
     <Compile Include="Resources.pt-br.Designer.cs">
       <DependentUpon>Resources.pt-br.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="DiffAnalyzableAttribute.cs" />
-    <Compile Include="DiffAnalyzableListItemKeyAttribute.cs" />
-    <Compile Include="DiffAnalyzer.cs" />
-    <Compile Include="DiffComparison.cs" />
     <Compile Include="DiifState.cs" />
     <Compile Include="MockClasses\Mock.cs" />
-    <Compile Include="NodeLoaders\DefaultNodeLoader.cs" />
-    <Compile Include="NodeLoaders\ListNodeLoader.cs" />
-    <Compile Include="NodeLoaders\ListPrimitiveNodeLoader.cs" />
-    <Compile Include="NodeLoaders\NodeLoaderBase.cs" />
-    <Compile Include="NodeLoaders\NodeLoaderFactory.cs" />
-    <Compile Include="NodeLoaders\NullablePrimitiveNodeLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>

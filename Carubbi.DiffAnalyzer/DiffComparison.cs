@@ -1,59 +1,42 @@
-﻿
-namespace Carubbi.DiffAnalyzer
+﻿namespace Carubbi.DiffAnalyzer
 {
     public class DiffComparison
     {
-        public string PropertyName { get; set; }
+        public string BreadCrumb { get; }
 
-        private object _oldValue;
-        public object OldValue
+        public DiffState State { get; }
+
+        public string PreviousValue { get; }
+
+        public string CurrentValue { get; }
+
+    
+        internal DiffComparison(string breadCrumb, string previousValue, string currentValue)
         {
-            get => _oldValue ?? string.Empty;
-            set => _oldValue = value;
+            PreviousValue = previousValue;
+            CurrentValue = currentValue;
+            BreadCrumb = breadCrumb;
+            State = ParseState();
         }
 
-        private object _newValue;
-        public object NewValue
+        private DiffState ParseState()
         {
-            get => _newValue ?? string.Empty;
-            set => _newValue = value;
-        }
-
-        public virtual DiffState State
-        {
-            get
+            if (PreviousValue == CurrentValue)
             {
-                if (OldValue == null && NewValue == null)
-                {
-                    return DiffState.Unknow;
-                }
-
-                if (OldValue != null && OldValue.GetHashCode() == NewValue.GetHashCode())
-                {
-                    return DiffState.NotChanged;
-                }
-
-                if ((string) OldValue == string.Empty && (string) NewValue != string.Empty)
-                {
-                    return DiffState.Added;
-                }
-
-                if ((string) NewValue == string.Empty && (string) OldValue != string.Empty)
-                {
-                    return DiffState.Deleted;
-                }
-
-                if (OldValue != null && NewValue.GetHashCode() != OldValue.GetHashCode())
-                {
-                    return DiffState.Modified;
-                }
-
-                return DiffState.Unknow;
+                return DiffState.NotChanged;
             }
+
+            if (PreviousValue == null && CurrentValue != null)
+            {
+                return DiffState.Added;
+            }
+
+            if (PreviousValue != null && CurrentValue == null)
+            {
+                return DiffState.Deleted;
+            }
+
+            return PreviousValue != CurrentValue ? DiffState.Modified : DiffState.Unknow;
         }
-
-        public int Depth { get; set; }
-
-        public bool LastProperty { get; set; }
     }
 }
